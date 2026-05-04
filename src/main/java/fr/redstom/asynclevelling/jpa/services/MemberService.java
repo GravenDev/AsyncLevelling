@@ -48,7 +48,7 @@ public class MemberService {
     private int timeout = 60;
 
     @Value("${xp.booster_boost_factor}")
-    private final double boostFactor = 1.5;
+    private double boostFactor = 1.5;
 
     @Transactional
     public MemberDao getMemberByDiscordMember(Member member) {

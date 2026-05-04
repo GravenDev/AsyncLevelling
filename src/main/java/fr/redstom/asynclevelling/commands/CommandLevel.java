@@ -35,7 +35,7 @@ public class CommandLevel implements CommandExecutor {
     private final ImageGenerator imageGenerator;
 
     @Value("${xp.booster_boost_factor}")
-    private final double boostFactor = 1.5;
+    private double boostFactor = 1.5;
 
     @Override
     public SlashCommandData data() {
