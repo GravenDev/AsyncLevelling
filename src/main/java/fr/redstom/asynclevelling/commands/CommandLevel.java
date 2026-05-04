@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import net.dv8tion.jda.api.utils.FileUpload;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -31,6 +32,9 @@ public class CommandLevel implements CommandExecutor {
 
     private final MemberService memberService;
     private final ImageGenerator imageGenerator;
+
+    @Value("${xp.booster_boost_factor}")
+    private final double boostFactor = 1.5;
 
     @Override
     public SlashCommandData data() {
@@ -62,11 +66,12 @@ public class CommandLevel implements CommandExecutor {
         stream.flush();
 
         if (discordMember.isBoosting()) {
+            int gain = (int) ((boostFactor - 1) * 100);
             if (discordMember.getId().equals(event.getMember().getId())) {
-                hook.editOriginal("✨ Vous boostez le serveur et **gagnez 50% d'XP en plus**.")
+                hook.editOriginal("✨ Vous boostez le serveur et **gagnez " + gain + "% d'XP en plus**.")
                         .complete();
             } else {
-                hook.editOriginal("✨ Ce membre booste le serveur et **gagne 50% d'XP en plus**.")
+                hook.editOriginal("✨ Ce membre booste le serveur et **gagne " + gain + "% d'XP en plus**.")
                         .complete();
             }
         }

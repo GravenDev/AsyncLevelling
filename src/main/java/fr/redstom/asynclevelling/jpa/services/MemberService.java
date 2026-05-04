@@ -47,6 +47,9 @@ public class MemberService {
     @Value("${xp.timeout}")
     private int timeout = 60;
 
+    @Value("${xp.booster_boost_factor}")
+    private final double boostFactor = 1.5;
+
     @Transactional
     public MemberDao getMemberByDiscordMember(Member member) {
         UserDao user = userService.getOrCreateByDiscordUser(member.getUser());
@@ -110,7 +113,7 @@ public class MemberService {
 
         long xpToGain = levelUtils.flattenMessageLengthIntoGain(message.getContentRaw().length());
         if (member.isBoosting()) {
-            xpToGain = Math.round(xpToGain * 1.5d);
+            xpToGain = Math.round(xpToGain * boostFactor);
         }
 
         gMember.experience(gMember.experience() + xpToGain);
@@ -132,7 +135,7 @@ public class MemberService {
         MemberDao gMember = getMemberByDiscordMember(member);
 
         if (member.isBoosting()) {
-            amount = Math.round(amount * 1.5d);
+            amount = Math.round(amount * boostFactor);
         }
 
         gMember.experience(gMember.experience() + amount);
