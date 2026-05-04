@@ -109,6 +109,9 @@ public class MemberService {
         if (Math.abs(distance) < timeout) return false;
 
         long xpToGain = levelUtils.flattenMessageLengthIntoGain(message.getContentRaw().length());
+        if (member.isBoosting()) {
+            xpToGain = Math.round(xpToGain * 1.5d);
+        }
 
         gMember.experience(gMember.experience() + xpToGain);
         gMember.lastMessageAt(messageCreated);
@@ -127,6 +130,10 @@ public class MemberService {
         }
 
         MemberDao gMember = getMemberByDiscordMember(member);
+
+        if(member.isBoosting()) {
+            amount = Math.round(amount * 1.5d);
+        }
 
         gMember.experience(gMember.experience() + amount);
         memberRepository.save(gMember);

@@ -61,6 +61,14 @@ public class CommandLevel implements CommandExecutor {
         ImageIO.write(image, "png", stream);
         stream.flush();
 
+        if(discordMember.isBoosting()) {
+            if(discordMember.getId().equals(event.getMember().getId())) {
+                hook.editOriginal("✨ Vous boostez le serveur et **gagnez 50% d'XP en plus**.").complete();
+            } else {
+                hook.editOriginal("✨ Ce membre booste le serveur et **gagne 50% d'XP en plus**.").complete();
+            }
+        }
+
         hook.editOriginalAttachments(FileUpload.fromData(stream.toByteArray(), "image.png"))
                 .queue();
     }
