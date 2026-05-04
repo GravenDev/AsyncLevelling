@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "fr.redstom"
-version = "1.0.2"
+version = "1.0.3"
 
 java {
     toolchain {
