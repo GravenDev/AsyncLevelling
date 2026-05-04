@@ -131,7 +131,7 @@ public class MemberService {
 
         MemberDao gMember = getMemberByDiscordMember(member);
 
-        if(member.isBoosting()) {
+        if (member.isBoosting()) {
             amount = Math.round(amount * 1.5d);
         }
 
