@@ -1,6 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
+  "minimumReleaseAge": "3 days",
   "packageRules": [
     {
       "matchPackageNames": ["gradle/actions"],
@@ -13,7 +14,16 @@
       "automerge": true
     },
     {
-      "matchPackageNames": ["com.fasterxml.jackson.core:jackson-databind"],
+      "matchPackageNames": ["com.diffplug.spotless"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "groupName": "Java",
+      "matchPackageNames": ["java", "eclipse-temurin"]
+    },
+    {
+      "matchPackageNames": ["java", "eclipse-temurin"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     }
