@@ -15,7 +15,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Service
@@ -32,7 +31,7 @@ public class VocalExperienceCron {
     public void compute() {
         log.info("Starting xp experience cron");
 
-        AtomicLong counter = new AtomicLong();
+        long counter = 0L;
         for (Guild guild : bot.getGuilds()) {
             for (VoiceChannel channel : guild.getVoiceChannels()) {
 
@@ -41,7 +40,6 @@ public class VocalExperienceCron {
                                 .filter(user -> user.getVoiceState() != null)
                                 .filter(user -> !user.getVoiceState().isDeafened())
                                 .filter(user -> !user.getVoiceState().isMuted())
-                                .peek(_ -> counter.incrementAndGet())
                                 .toList();
 
                 if (members.size() < 2) {
@@ -49,9 +47,10 @@ public class VocalExperienceCron {
                 }
 
                 members.forEach(member -> memberService.addXp(member, per30sec, "Voice activity"));
+                counter += members.size();
             }
         }
 
-        log.info("Xp experience cron complete and {} users updated", counter.get());
+        log.info("Xp experience cron complete and {} users updated", counter);
     }
 }
