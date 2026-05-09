@@ -32,7 +32,7 @@ public class VocalExperienceCron {
     public void compute() {
         log.info("Starting xp experience cron");
 
-        AtomicLong counter = new AtomicLong();
+        long counter = 0L;
         for (Guild guild : bot.getGuilds()) {
             for (VoiceChannel channel : guild.getVoiceChannels()) {
 
@@ -47,13 +47,11 @@ public class VocalExperienceCron {
                     continue;
                 }
 
-                members.forEach(member -> {
-                    counter.incrementAndGet();
-                    memberService.addXp(member, per30sec, "Voice activity");
-                });
+                members.forEach(member -> memberService.addXp(member, per30sec, "Voice activity"));
+                counter += members.size();
             }
         }
 
-        log.info("Xp experience cron complete and {} users updated", counter.get());
+        log.info("Xp experience cron complete and {} users updated", counter);
     }
 }
