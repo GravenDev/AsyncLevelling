@@ -41,14 +41,16 @@ public class VocalExperienceCron {
                                 .filter(user -> user.getVoiceState() != null)
                                 .filter(user -> !user.getVoiceState().isDeafened())
                                 .filter(user -> !user.getVoiceState().isMuted())
-                                .peek(_ -> counter.incrementAndGet())
                                 .toList();
 
                 if (members.size() < 2) {
                     continue;
                 }
 
-                members.forEach(member -> memberService.addXp(member, per30sec, "Voice activity"));
+                members.forEach(member -> {
+                    counter.incrementAndGet();
+                    memberService.addXp(member, per30sec, "Voice activity");
+                });
             }
         }
 
