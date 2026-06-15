@@ -43,9 +43,7 @@ Une fois la demande reçue, les données associées à l'utilisateur seront supp
 
 ## 5. Sécurité
 
-- Les données sont stockées sur une base PostgreSQL.
-- **Aucun chiffrement au repos** n'est actuellement appliqué aux données stockées (conformément à la politique développeur Discord, des mesures sont en cours d'évaluation).
-- L'accès à la base de données est protégé par des identifiants définis via les variables d'environnement `DB_USER`, `DB_PASS` et `DB_URL`.
+- Les données sont stockées sur une base PostgreSQL accessible uniquement via des identifiants définis par les variables d'environnement `DB_USER`, `DB_PASS` et `DB_URL`.
 - Le token du bot est stocké via la variable d'environnement `BOT_TOKEN` et n'est jamais exposé.
 
 ## 6. Non-participation (opt-out)
