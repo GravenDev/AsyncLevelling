@@ -57,6 +57,11 @@ public class CommandLevel implements CommandExecutor {
             return;
         }
 
+        if (discordMember.getUser().isBot()) {
+            event.replyEmbeds(EmbedUtils.error("Les bots n'ont pas de niveau").build()).queue();
+            return;
+        }
+
         InteractionHook hook = event.deferReply().complete();
 
         MemberDao member = memberService.getMemberByDiscordMember(discordMember);
