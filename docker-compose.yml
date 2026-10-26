@@ -4,7 +4,7 @@ x-vars:
 
 services:
   pgsql:
-    image: postgres:16
+    image: postgres:18
     restart: unless-stopped
     environment:
       POSTGRES_USER: *db-user
